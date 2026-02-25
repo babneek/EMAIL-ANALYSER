@@ -1,0 +1,12 @@
+# Environment variables
+.env
+
+# Python virtual environment
+.venv/
+__pycache__/
+*.py[cod]
+
+# Output files
+test_report.csv
+report.csv
+email_thread_analytics.csv

@@ -1,0 +1,138 @@
+{
+  "conversations": [
+    {
+      "conversation_id": "CONV_001",
+      "client": "TechCorp Solutions",
+      "sales_rep": "Sarah Johnson",
+      "emails": [
+        {
+          "email_id": "E001",
+          "sender": "mike.chen@techcorp.com",
+          "recipient": "sarah.johnson@sales.com",
+          "timestamp": "2026-02-10T09:15:00Z",
+          "subject": "Enterprise plan inquiry",
+          "body": "Hi Sarah,\n\nWe're interested in your enterprise plan for our team of 500+ users. Can you share pricing details and what features are included? We're particularly interested in API access, SSO, and custom integrations.\n\nAlso, what's your typical implementation timeline?\n\nThanks,\nMike"
+        },
+        {
+          "email_id": "E002",
+          "sender": "sarah.johnson@sales.com",
+          "recipient": "mike.chen@techcorp.com",
+          "timestamp": "2026-02-10T14:30:00Z",
+          "subject": "Re: Enterprise plan inquiry",
+          "body": "Hi Mike,\n\nGreat to hear from you! Our enterprise plan starts at $50/user/month for 500+ users and includes:\n- Full API access\n- SSO (SAML, OAuth)\n- Priority support\n- Custom integrations\n\nImplementation usually takes 4-6 weeks. Would you like to schedule a demo?\n\nBest,\nSarah"
+        },
+        {
+          "email_id": "E003",
+          "sender": "mike.chen@techcorp.com",
+          "recipient": "sarah.johnson@sales.com",
+          "timestamp": "2026-02-12T10:00:00Z",
+          "subject": "Re: Enterprise plan inquiry",
+          "body": "Hi Sarah,\n\n$50/user seems high for our volume. Do you offer volume discounts? We're looking at 500-600 users initially.\n\nAlso, can you clarify if there are any setup fees or migration costs? We're currently on CompetitorX.\n\nMike"
+        },
+        {
+          "email_id": "E004",
+          "sender": "sarah.johnson@sales.com",
+          "recipient": "mike.chen@techcorp.com",
+          "timestamp": "2026-02-13T11:20:00Z",
+          "subject": "Re: Enterprise plan inquiry",
+          "body": "Hi Mike,\n\nFor 500+ users, we can offer $45/user/month on an annual contract. Setup is included at no extra cost.\n\nRegarding migration from CompetitorX, our team provides full migration support as part of the onboarding process.\n\nInterested in a call this week to discuss further?\n\nSarah"
+        },
+        {
+          "email_id": "E005",
+          "sender": "mike.chen@techcorp.com",
+          "recipient": "sarah.johnson@sales.com",
+          "timestamp": "2026-02-15T08:45:00Z",
+          "subject": "Re: Enterprise plan inquiry",
+          "body": "Hi Sarah,\n\nThanks for the discount. However, we'd need the pricing locked for at least 2 years, not just one. Can you accommodate that?\n\nAlso, what's the SLA for support response times? Our current vendor guarantees 1-hour response for critical issues.\n\nMike"
+        },
+        {
+          "email_id": "E006",
+          "sender": "sarah.johnson@sales.com",
+          "recipient": "mike.chen@techcorp.com",
+          "timestamp": "2026-02-17T13:00:00Z",
+          "subject": "Re: Enterprise plan inquiry",
+          "body": "Hi Mike,\n\nOur standard SLA includes 2-hour response for critical issues and 24-hour for non-critical. We can explore custom SLAs for enterprise clients.\n\nLet me check with my manager about the 2-year price lock and get back to you tomorrow.\n\nSarah"
+        },
+        {
+          "email_id": "E007",
+          "sender": "mike.chen@techcorp.com",
+          "recipient": "sarah.johnson@sales.com",
+          "timestamp": "2026-02-20T14:30:00Z",
+          "subject": "Re: Enterprise plan inquiry - Following up",
+          "body": "Hi Sarah,\n\nJust following up on the 2-year pricing lock question. Our budget planning cycle requires this commitment.\n\nAlso, still unclear on whether the $45/user includes the custom SLA or if that's additional cost.\n\nWe need to make a decision by end of month.\n\nMike"
+        }
+      ]
+    },
+    {
+      "conversation_id": "CONV_002",
+      "client": "Global Finance Inc",
+      "sales_rep": "David Martinez",
+      "emails": [
+        {
+          "email_id": "E008",
+          "sender": "jennifer.liu@globalfinance.com",
+          "recipient": "david.martinez@sales.com",
+          "timestamp": "2026-02-11T10:30:00Z",
+          "subject": "Security compliance questions",
+          "body": "Hi David,\n\nBefore we proceed with the contract, our compliance team needs answers to the following:\n\n1. Are you SOC 2 Type II certified?\n2. Do you support data residency in EU regions?\n3. What encryption standards do you use for data at rest and in transit?\n4. Can we get a copy of your security audit report?\n\nThanks,\nJennifer"
+        },
+        {
+          "email_id": "E009",
+          "sender": "david.martinez@sales.com",
+          "recipient": "jennifer.liu@globalfinance.com",
+          "timestamp": "2026-02-12T15:45:00Z",
+          "subject": "Re: Security compliance questions",
+          "body": "Hi Jennifer,\n\nGreat questions! Here are the answers:\n\n1. Yes, we're SOC 2 Type II certified (renewed annually)\n2. We support EU data residency in Frankfurt and Dublin regions\n3. AES-256 for data at rest, TLS 1.3 for data in transit\n4. I'll send the security audit report separately (under NDA)\n\nAnything else you need?\n\nDavid"
+        },
+        {
+          "email_id": "E010",
+          "sender": "jennifer.liu@globalfinance.com",
+          "recipient": "david.martinez@sales.com",
+          "timestamp": "2026-02-14T09:20:00Z",
+          "subject": "Re: Security compliance questions",
+          "body": "Hi David,\n\nThanks for the quick response. A few follow-ups:\n\n1. Do you have GDPR data processing agreements (DPA) ready to sign?\n2. What's your approach to vulnerability management and patching?\n3. Can we conduct our own penetration testing?\n\nJennifer"
+        },
+        {
+          "email_id": "E011",
+          "sender": "david.martinez@sales.com",
+          "recipient": "jennifer.liu@globalfinance.com",
+          "timestamp": "2026-02-14T16:00:00Z",
+          "subject": "Re: Security compliance questions",
+          "body": "Hi Jennifer,\n\n1. Yes, we have standard DPA ready. Can be signed with the main contract.\n2. We patch critical vulnerabilities within 24 hours, high within 7 days.\n3. Penetration testing is allowed with 2 weeks notice and coordination with our security team.\n\nDavid"
+        },
+        {
+          "email_id": "E012",
+          "sender": "jennifer.liu@globalfinance.com",
+          "recipient": "david.martinez@sales.com",
+          "timestamp": "2026-02-18T11:00:00Z",
+          "subject": "Contract terms - liability cap",
+          "body": "Hi David,\n\nOur legal team reviewed your contract and has concerns about the liability cap being limited to 12 months of fees paid. For a financial services company, this is insufficient.\n\nWe need at minimum a 2x cap (24 months of fees) for data breaches or security incidents.\n\nCan you accommodate this?\n\nJennifer"
+        },
+        {
+          "email_id": "E013",
+          "sender": "david.martinez@sales.com",
+          "recipient": "jennifer.liu@globalfinance.com",
+          "timestamp": "2026-02-19T10:30:00Z",
+          "subject": "Re: Contract terms - liability cap",
+          "body": "Hi Jennifer,\n\nOur standard liability cap is 12 months for all customers. I'll need to escalate the 2x request to our legal team.\n\nIn the meantime, would additional cyber insurance on our end help address your concerns?\n\nDavid"
+        },
+        {
+          "email_id": "E014",
+          "sender": "jennifer.liu@globalfinance.com",
+          "recipient": "david.martinez@sales.com",
+          "timestamp": "2026-02-21T14:15:00Z",
+          "subject": "Re: Contract terms - liability cap",
+          "body": "Hi David,\n\nCyber insurance might help, but we still need clarity on the liability cap modification. This is a dealbreaker for us.\n\nAlso, can you confirm the uptime SLA? I don't see it clearly stated in the contract. We require 99.95% minimum.\n\nJennifer"
+        },
+        {
+          "email_id": "E015",
+          "sender": "david.martinez@sales.com",
+          "recipient": "jennifer.liu@globalfinance.com",
+          "timestamp": "2026-02-22T09:00:00Z",
+          "subject": "Re: Contract terms - liability cap",
+          "body": "Hi Jennifer,\n\nOur standard uptime SLA is 99.9%. I've escalated your requests to leadership:\n- 2x liability cap for security incidents\n- 99.95% uptime SLA\n\nI should have an update early next week.\n\nDavid"
+        }
+      ]
+    }
+  ]
+}
