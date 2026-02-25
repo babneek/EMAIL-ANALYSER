@@ -18,10 +18,10 @@ load_dotenv()
 
 # Page Configuration
 st.set_page_config(
-    page_title="SimplAI | Sales Email Analytics",
+    page_title="Sales Email Analytics Engine",
     page_icon="📧",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 # Custom CSS for Premium Look
@@ -70,35 +70,39 @@ st.markdown("""
     section[data-testid="stSidebar"] h3,
     section[data-testid="stSidebar"] p {
         color: #f1f5f9;
+        text-align: center;
     }
 
     /* Custom Container/Card */
     .custom-card {
         background: white;
-        padding: 1.5rem;
-        border-radius: 16px;
+        padding: 2rem;
+        border-radius: 20px;
         border: 1px solid #e2e8f0;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
     }
 
     /* Premium Button Styling */
     div.stButton > button {
         width: 100%;
-        border-radius: 12px;
-        height: 3rem;
+        border-radius: 14px;
+        height: 3.5rem;
         background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
         color: white;
-        font-weight: 600;
+        font-weight: 700;
+        font-size: 1.1rem;
         border: none;
-        transition: all 0.2s ease-in-out;
-        box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     div.stButton > button:hover {
         background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4);
         border: none;
         color: white;
     }
@@ -107,18 +111,23 @@ st.markdown("""
         transform: translateY(0px);
     }
 
-    /* Secondary/Validate Button */
-    div[data-testid="stHorizontalBlock"] div.stButton > button {
-        background: #f1f5f9;
+    /* Secondary Button (Confirm/Check) */
+    .secondary-btn div.stButton > button {
+        background: #f8fafc;
         color: #1e293b;
-        border: 1px solid #e2e8f0;
+        border: 2px solid #e2e8f0;
+        height: 3rem;
         box-shadow: none;
+        text-transform: none;
+        font-size: 1rem;
     }
     
-    div[data-testid="stHorizontalBlock"] div.stButton > button:hover {
-        background: #e2e8f0;
+    .secondary-btn div.stButton > button:hover {
+        background: #f1f5f9;
         color: #0f172a;
-        border: 1px solid #cbd5e1;
+        border: 2px solid #cbd5e1;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
 
     /* Success/Validation message */
@@ -127,247 +136,204 @@ st.markdown("""
         border: none;
     }
 
-    /* Dataframe Styling */
-    [data-testid="stDataFrame"] {
-        border-radius: 12px;
-        overflow: hidden;
-        border: 1px solid #e2e8f0;
-    }
-
     /* Metrics Styling */
     [data-testid="stMetric"] {
         background: white;
-        padding: 1rem;
-        border-radius: 12px;
+        padding: 1.5rem;
+        border-radius: 18px;
         border: 1px solid #e2e8f0;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
-
+    
     /* Tabs Styling */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 10px;
+        gap: 15px;
         background-color: transparent;
     }
 
     .stTabs [data-baseweb="tab"] {
-        height: 50px;
-        white-space: pre-wrap;
-        background-color: #f1f5f9;
-        border-radius: 10px 10px 0px 0px;
-        gap: 1px;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        height: 45px;
+        background-color: transparent;
+        color: #64748b;
+        font-weight: 600;
+        font-size: 1rem;
     }
 
     .stTabs [aria-selected="true"] {
-        background-color: white !important;
-        border-bottom: 2px solid var(--primary) !important;
+        color: var(--primary) !important;
+        border-bottom: 3px solid var(--primary) !important;
     }
-    
-    /* Hide Deploy button and default headers */
+
+    /* Hide default elements */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
-# Sidebar
+# Sidebar (Branding Only)
 with st.sidebar:
-    st.markdown("<div style='text-align: center; padding: 1rem;'>", unsafe_allow_html=True)
-    st.image("https://img.icons8.com/fluency/96/000000/analytics.png", width=80)
+    st.markdown("<div style='text-align: center; padding: 2rem 1rem 1rem 1rem;'>", unsafe_allow_html=True)
+    st.image("https://img.icons8.com/fluency/96/000000/analytics.png", width=100)
+    st.markdown("<h2 style='color:white; margin-top:1rem;'>Email Insights</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='color:#94a3b8; font-size:0.9rem;'>Intelligence for modern sales teams.</p>", unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
-    st.title("SimplAI Analytics")
-    
-    st.markdown("### 🛰️ System Status")
-    api_key_status = "🟢 Configured" if os.getenv("OPENAI_API_KEY") else "🔴 Missing API Key"
-    st.write(f"**Gateway:** {api_key_status}")
-    
-    model_name = os.getenv("MODEL_NAME", "gpt-4o-mini")
-    st.write(f"**Intelligence:** `{model_name}`")
-    
     st.markdown("---")
-    
-    # Advanced Settings
-    with st.expander("🛠️ Advanced Settings"):
-        api_key = st.text_input("Override API Key", value=os.getenv("OPENAI_API_KEY", ""), type="password")
-        model = st.selectbox("LLM Model", ["gpt-4o-mini", "gpt-4o", "gpt-4-turbo"], index=0)
-    
-    if not api_key:
-        api_key = os.getenv("OPENAI_API_KEY", "")
-    if not model:
-        model = os.getenv("MODEL_NAME", "gpt-4o-mini")
+    st.markdown("### 🛠️ Mode")
+    st.write(f"Active Engine: `gpt-4o-mini`")
+    st.info("The application is running in fully automated mode using pre-configured system keys.")
 
-    st.markdown("### 📖 Guide")
-    st.info("💡 **Pro-tip:** Use the 'Paste' option for quick snippets, or upload files for full conversation logs.")
-
-# Header Section
+# Header
 st.markdown("""
-    <div style='background: white; padding: 2rem; border-radius: 20px; border: 1px solid #e2e8f0; margin-bottom: 2rem;'>
-        <h1 style='margin:0; font-family: Outfit;'>Sales Insights Engine</h1>
-        <p style='color: #64748b; font-size: 1.1rem; margin-top: 0.5rem;'>
-            Powered by SimplAI. Uncover threads, sentiment, and risks in seconds.
+    <div style='background: white; padding: 2.5rem; border-radius: 24px; border: 1px solid #e2e8f0; margin-bottom: 2rem; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);'>
+        <h1 style='margin:0; font-family: Outfit; font-size: 3rem;'>Sales Intelligence Engine</h1>
+        <p style='color: #64748b; font-size: 1.25rem; margin-top: 0.75rem; font-weight: 400;'>
+            Extract threads, analyze sentiment, and pinpoint risks from your email conversations.
         </p>
     </div>
 """, unsafe_allow_html=True)
 
-# Input Section
-st.markdown("### 📥 Source Selection")
-tab1, tab2 = st.tabs(["📁 File Repository", "📋 Scratchpad / Paste"])
-
-# Initialize session state for validation
+# Sessions and logic
 if 'json_validated' not in st.session_state:
     st.session_state.json_validated = False
 if 'last_input_hash' not in st.session_state:
     st.session_state.last_input_hash = None
+if 'df_result' not in st.session_state:
+    st.session_state.df_result = None
 
 current_input_data = None
+api_key = os.getenv("OPENAI_API_KEY", "")
+model = os.getenv("MODEL_NAME", "gpt-4o-mini")
+
+# Main Input Card
+st.markdown("<div class='custom-card'>", unsafe_allow_html=True)
+st.markdown("### 📥 Input Source")
+tab1, tab2 = st.tabs(["📁 Upload Conversations", "📋 Paste Data Snippets"])
 
 with tab1:
-    st.markdown("<div class='custom-card'>", unsafe_allow_html=True)
-    uploaded_file = st.file_uploader("Drop your conversation JSON here", type=["json"])
+    uploaded_file = st.file_uploader("Drop your email conversation JSON here", type=["json"])
     if uploaded_file:
         try:
             content = uploaded_file.read().decode("utf-8")
             current_input_data = json.loads(content)
-            col_v1, _ = st.columns([1, 3])
-            with col_v1:
-                if st.button("✨ Verify Payload", key="btn_check_file"):
-                    st.session_state.json_validated = True
-                    st.toast("Data Verified Successfully!", icon="🎉")
         except Exception as e:
             st.error(f"Error reading file: {e}")
-            st.session_state.json_validated = False
-    st.markdown("</div>", unsafe_allow_html=True)
 
 with tab2:
-    st.markdown("<div class='custom-card'>", unsafe_allow_html=True)
-    json_text = st.text_area("JSON Code Snippet", height=250, placeholder="Paste JSON here...")
+    json_text = st.text_area("JSON Code Snippet", height=200, placeholder="Paste email JSON here...")
     if json_text:
         try:
             current_input_data = json.loads(json_text)
-            col_v2, _ = st.columns([1, 3])
-            with col_v2:
-                if st.button("✨ Verify Syntax", key="btn_check_text"):
-                    st.session_state.json_validated = True
-                    st.toast("JSON Syntax Valid!", icon="✅")
         except json.JSONDecodeError as e:
-            st.error(f"Syntax Error: {e}")
-            st.session_state.json_validated = False
-    st.markdown("</div>", unsafe_allow_html=True)
+            st.error(f"Syntax Error in JSON: {e}")
 
-# Reset validation if input changes
+# Entry/Proceed logic
+if current_input_data:
+    st.markdown("---")
+    col_v, col_run = st.columns([1, 1])
+    
+    with col_v:
+        st.markdown("<div class='secondary-btn'>", unsafe_allow_html=True)
+        if st.button("✨ Verify & Prepare Data", use_container_width=True):
+            st.session_state.json_validated = True
+            st.toast("Data structure verified!", icon="✅")
+        st.markdown("</div>", unsafe_allow_html=True)
+        
+    with col_run:
+        if not st.session_state.json_validated:
+            st.button("🚀 Analyze conversations", disabled=True, help="Verify data first", use_container_width=True)
+        else:
+            if st.button("🚀 Start Insights Engine", use_container_width=True):
+                if not api_key:
+                    st.error("System Error: API credentials not found in environment.")
+                else:
+                    ph = st.empty()
+                    with ph.container():
+                        st.markdown("<div class='custom-card' style='border-color:#3b82f6;'>", unsafe_allow_html=True)
+                        st.info("⚙️ **Engine Initialized.** Starting deep analysis...")
+                        p_bar = st.progress(0)
+                        
+                        try:
+                            # Step 1: Identification
+                            p_bar.progress(20)
+                            emails_json = json.dumps(current_input_data)
+                            threads = identify_threads(emails_json, api_key, model, verbose=True)
+                            
+                            if threads and "threads" in threads:
+                                # Step 2: Analysis
+                                thread_count = len(threads["threads"])
+                                p_bar.progress(60)
+                                analysis = analyze_threads(json.dumps(threads), api_key, model, verbose=True)
+                                
+                                if analysis and "analyzed_threads" in analysis:
+                                    p_bar.progress(90)
+                                    df_rows = []
+                                    fieldnames = [
+                                        'thread_id', 'conversation_id', 'thread_topic', 'email_count', 
+                                        'participants', 'overall_sentiment', 'sentiment_trend', 
+                                        'client_requirements', 'open_questions', 'sales_rep_understanding', 
+                                        'sales_rep_gaps', 'risk_level', 'recommended_next_action', 'last_updated'
+                                    ]
+                                    
+                                    for thread in analysis["analyzed_threads"]:
+                                        row = {f: ("; ".join(map(str, thread.get(f, []))) if isinstance(thread.get(f), list) else thread.get(f, '')) for f in fieldnames}
+                                        df_rows.append(row)
+                                    
+                                    st.session_state.df_result = pd.DataFrame(df_rows)
+                                    p_bar.progress(100)
+                                    ph.empty()
+                                    st.toast("Intelligence gathering complete!", icon="🎯")
+                                else:
+                                    st.error("Analysis Engine returned an empty result.")
+                            else:
+                                st.error("Thread Identification failed. Check data format.")
+                        except Exception as e:
+                            st.error(f"Processing Error: {e}")
+                    st.markdown("</div>", unsafe_allow_html=True)
+
+st.markdown("</div>", unsafe_allow_html=True)
+
+# Input hash check (reset on change)
 input_hash = hash(str(current_input_data)) if current_input_data else None
 if input_hash != st.session_state.last_input_hash:
     st.session_state.json_validated = False
     st.session_state.last_input_hash = input_hash
+    st.session_state.df_result = None
 
-# Process Area
-if current_input_data:
-    st.markdown("---")
-    col_a, col_b = st.columns([2, 1])
-    
-    with col_a:
-        st.markdown("### 🏗️ Processing Console")
-        with st.expander("📂 View Raw Structure"):
-            st.json(current_input_data)
-        
-        if not st.session_state.json_validated:
-            st.warning("⚠️ **Safety Check Required:** Please verify the payload above before activation.")
-        
-        # Primary Action Button
-        run_btn = st.button("🚀 EXECUTE ANALYTICS ENGINE", 
-                           disabled=not st.session_state.json_validated,
-                           width='stretch')
-        
-        if run_btn:
-            if not api_key:
-                st.error("Missing Security Credential (API Key). Check .env or Sidebar.")
-            else:
-                ph = st.empty()
-                with ph.container():
-                    st.info("⚙️ Initializing Engine...")
-                    p_bar = st.progress(0)
-                    
-                    # Step 1: Identification
-                    st.write("🧵 Mapping Threads...")
-                    p_bar.progress(20)
-                    emails_json = json.dumps(current_input_data)
-                    threads = identify_threads(emails_json, api_key, model, verbose=True)
-                    
-                    if threads and "threads" in threads:
-                        # Step 2: Analysis
-                        thread_count = len(threads["threads"])
-                        st.write(f"✍️ Analyzing {thread_count} Threads...")
-                        p_bar.progress(60)
-                        analysis = analyze_threads(json.dumps(threads), api_key, model, verbose=True)
-                        
-                        if analysis and "analyzed_threads" in analysis:
-                            p_bar.progress(90)
-                            st.success("✅ Analysis Complete!")
-                            
-                            # Final Data Prep
-                            df_rows = []
-                            fieldnames = [
-                                'thread_id', 'conversation_id', 'thread_topic', 'email_count', 
-                                'participants', 'overall_sentiment', 'sentiment_trend', 
-                                'client_requirements', 'open_questions', 'sales_rep_understanding', 
-                                'sales_rep_gaps', 'risk_level', 'recommended_next_action', 'last_updated'
-                            ]
-                            
-                            for thread in analysis["analyzed_threads"]:
-                                row = {f: ("; ".join(map(str, thread.get(f, []))) if isinstance(thread.get(f), list) else thread.get(f, '')) for f in fieldnames}
-                                df_rows.append(row)
-                            
-                            df = pd.DataFrame(df_rows)
-                            st.session_state.df_result = df
-                            p_bar.progress(100)
-                            ph.empty()
-                        else:
-                            st.error("Analysis Engine Failure. check API limits.")
-                    else:
-                        st.error("Mapping Engine Failure. Check input format.")
-
-    with col_b:
-        st.markdown("### ℹ️ Operations Info")
-        st.markdown("""
-        - **Model:** `gpt-4o-mini`
-        - **Latency:** ~5-15s
-        - **Accuracy:** High
-        - **Logic:** Sentiment, Gap Analysis, Risk Scoring
-        """)
-
-# Results Section
-if 'df_result' in st.session_state:
+# Results Dashboard
+if st.session_state.df_result is not None:
     df = st.session_state.df_result
-    st.markdown("---")
-    st.markdown("### 📊 Intelligence Dashboard")
+    st.markdown("### 📊 Executive Overview")
     
-    # KPIs
-    kpi1, kpi2, kpi3 = st.columns(3)
-    kpi1.metric("Captured Threads", len(df))
-    high_risk = len(df[df['risk_level'].str.lower().str.contains('high|critical')])
-    kpi2.metric("Critical Risks", high_risk, delta="- Action needed" if high_risk > 0 else "Safe")
-    sentiment = df['overall_sentiment'].mode()[0] if not df.empty else "N/A"
-    kpi3.metric("Lead Sentiment", sentiment.capitalize())
-    
-    # Data View
+    m1, m2, m3 = st.columns(3)
+    with m1:
+        st.metric("Total threads", len(df))
+    with m2:
+        high_risk = len(df[df['risk_level'].str.lower().str.contains('high|critical')])
+        st.metric("Risk alerts", high_risk, delta="CRITICAL" if high_risk > 0 else None, delta_color="inverse")
+    with m3:
+        avg_sent = df['overall_sentiment'].mode()[0] if not df.empty else "N/A"
+        st.metric("Core sentiment", avg_sent.capitalize())
+        
     st.markdown("<div class='custom-card'>", unsafe_allow_html=True)
+    st.markdown("#### 🔍 Thread Details")
     st.dataframe(df, width='stretch', hide_index=True)
     
-    # Download
-    csv_out = df.to_csv(index=False).encode('utf-8')
+    st.markdown("<br>", unsafe_allow_html=True)
+    csv_bytes = df.to_csv(index=False).encode('utf-8')
     st.download_button(
-        label="📥 DOWNLOAD EXECUTIVE REPORT (CSV)",
-        data=csv_out,
-        file_name="sales_email_analysis.csv",
+        label="📥 Export Analysis to CSV",
+        data=csv_bytes,
+        file_name="sales_report.csv",
         mime="text/csv",
+        use_container_width=True
     )
     st.markdown("</div>", unsafe_allow_html=True)
 
-# Footer Info
+# Footer if no data
 if not current_input_data:
     st.markdown("""
-    <div style='text-align: center; color: #94a3b8; padding: 3rem;'>
-        <p>Awaiting data stream... Select a source to begin.</p>
+    <div style='text-align: center; color: #94a3b8; padding: 4rem 1rem;'>
+        <p style='font-size: 1.1rem;'>Awaiting data stream... Provide a JSON source above to start analysis.</p>
     </div>
     """, unsafe_allow_html=True)
