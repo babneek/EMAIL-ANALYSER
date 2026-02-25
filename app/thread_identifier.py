@@ -6,36 +6,41 @@ Mirror of SimplAI Node 2 (Thread_Identifier).
 import json
 from openai import OpenAI
 
-SYSTEM_PROMPT = """You are an expert sales email analyst. Your task is to analyze a collection of sales emails and identify distinct conversation threads.
+SYSTEM_PROMPT = """You are an expert email analyst. Your job is to identify distinct discussion threads within sales email conversations. Return ONLY valid JSON, no markdown code blocks, no explanations."""
 
-For each thread, extract:
-- A unique thread_id (e.g., T001, T002)
-- The conversation_id it belongs to
-- A descriptive thread_topic
-- The email_ids that belong to this thread
-- All participants involved
+USER_PROMPT_TEMPLATE = """Analyze the following sales email conversations and identify all distinct discussion threads.
 
-Group emails by their actual topic/subject matter, not just by reply chain.
-A single conversation may contain multiple threads (pricing, implementation, support, etc.).
-
-Return ONLY valid JSON in this exact format:
-{
-  "threads": [
-    {
-      "thread_id": "T001",
-      "conversation_id": "CONV_001",
-      "thread_topic": "Topic description",
-      "email_ids": ["E001", "E002"],
-      "participants": ["Name1 <email1>", "Name2 <email2>"]
-    }
-  ]
-}"""
-
-USER_PROMPT_TEMPLATE = """Analyze these sales emails and identify all distinct conversation threads:
-
+Emails:
 {emails}
 
-Group them by topic/discussion thread and return the structured JSON."""
+Group the emails by discussion thread. A thread is defined by a specific topic (e.g., Pricing, Product Features, Timeline, Contract Terms). A single email may belong to multiple threads if it discusses multiple topics.
+
+Return ONLY this JSON structure:
+{{
+  "threads": [
+    {{
+      "thread_id": "T001",
+      "conversation_id": "CONV_001",
+      "thread_topic": "Short descriptive label",
+      "email_ids": ["E001", "E003", "E007"],
+      "participants": ["sender1@example.com", "sender2@example.com"],
+      "email_count": 3,
+      "emails_content": [
+        {{
+          "email_id": "E001",
+          "sender": "...",
+          "timestamp": "...",
+          "relevant_excerpt": "The portion of this email relevant to this thread"
+        }}
+      ]
+    }}
+  ]
+}}
+
+Rules:
+- Every email must appear in at least one thread.
+- Thread topics should be specific labels like: Pricing, Product Features, Implementation Timeline, Contract Terms, Support SLAs, Data Migration, Security Compliance, etc.
+- Output raw JSON only."""
 
 
 def identify_threads(emails_json: str, api_key: str, model: str = "gpt-4o-mini", verbose: bool = False) -> dict:

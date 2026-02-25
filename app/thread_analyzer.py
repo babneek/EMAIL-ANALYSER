@@ -6,47 +6,50 @@ Mirror of SimplAI Node 3 (Thread_Analyzer).
 import json
 from openai import OpenAI
 
-SYSTEM_PROMPT = """You are an expert sales conversation analyst. Analyze each email thread and provide comprehensive insights.
+SYSTEM_PROMPT = """You are a sales intelligence analyst. You analyze email threads for sentiment, client requirements, sales rep performance, and risk. Return ONLY valid JSON, no markdown code blocks."""
 
-For each thread, determine:
-- overall_sentiment: positive / neutral / negative / mixed
-- sentiment_trend: improving / declining / stable / volatile
-- client_requirements: list of explicit requirements mentioned
-- open_questions: list of unresolved questions or pending items
-- sales_rep_understanding: how well the sales rep understands the client's needs
-- sales_rep_gaps: areas where the sales rep missed or misunderstood requirements
-- risk_level: low / medium / high / critical
-- recommended_next_action: specific next step the sales team should take
-- last_updated: timestamp or date of the most recent email in this thread
+USER_PROMPT_TEMPLATE = """Analyze each email thread below and produce a detailed assessment.
 
-Return ONLY valid JSON in this exact format:
-{
-  "analyzed_threads": [
-    {
-      "thread_id": "T001",
-      "conversation_id": "CONV_001",
-      "thread_topic": "Topic description",
-      "email_count": 3,
-      "participants": ["Name1 <email1>", "Name2 <email2>"],
-      "overall_sentiment": "positive",
-      "sentiment_trend": "improving",
-      "client_requirements": ["requirement 1", "requirement 2"],
-      "open_questions": ["question 1", "question 2"],
-      "sales_rep_understanding": "Brief assessment of understanding",
-      "sales_rep_gaps": ["gap 1", "gap 2"],
-      "risk_level": "low",
-      "recommended_next_action": "Specific action to take",
-      "last_updated": "2024-01-15"
-    }
-  ]
-}"""
-
-USER_PROMPT_TEMPLATE = """Perform comprehensive analysis on these identified email threads.
-Use the thread structure below and infer content from the thread metadata and topics:
-
+Threads:
 {threads}
 
-For each thread, provide full analytical insights as specified. Return structured JSON."""
+For EACH thread, evaluate:
+
+1. **Sentiment**: Overall sentiment (Positive / Neutral / Negative) and trend (Improving / Stable / Declining).
+2. **Client Requirements**: What does the client need? List explicit and implicit requirements.
+3. **Open Questions**: Unresolved questions the client has asked.
+4. **Sales Rep Understanding**: Did the rep clearly understand the client's needs? (Clear / Partial / Poor). Identify gaps like unanswered questions, repeated follow-ups, or vague responses.
+5. **Risk Level**: Low / Medium / High — based on unresolved issues, negative sentiment, or dropped threads.
+6. **Recommended Next Action**: What should the sales team do next?
+
+Return ONLY this JSON structure:
+{{
+  "analyzed_threads": [
+    {{
+      "thread_id": "T001",
+      "conversation_id": "CONV_001",
+      "thread_topic": "Pricing",
+      "email_count": 3,
+      "participants": "alice@client.com; bob@sales.com",
+      "overall_sentiment": "Negative",
+      "sentiment_trend": "Declining",
+      "client_requirements": "Wants 20% volume discount for 500+ licenses; needs pricing locked for 2 years",
+      "open_questions": "What is the discount for annual vs monthly billing?",
+      "sales_rep_understanding": "Partial",
+      "sales_rep_gaps": "Did not address the 2-year price lock request; repeated client follow-up on discount tiers",
+      "risk_level": "High",
+      "recommended_next_action": "Schedule pricing call; prepare custom discount proposal for 500+ licenses",
+      "last_updated": "2026-02-20T14:30:00Z"
+    }}
+  ]
+}}
+
+Rules:
+- One object per thread. Do not merge threads.
+- "participants" should be a semicolon-separated string.
+- "client_requirements", "open_questions", "sales_rep_gaps" should be concise semicolon-separated strings.
+- "last_updated" should be the timestamp of the latest email in the thread.
+- Output raw JSON only."""
 
 
 def analyze_threads(threads_json: str, api_key: str, model: str = "gpt-4o-mini", verbose: bool = False) -> dict:
