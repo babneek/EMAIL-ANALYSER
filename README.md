@@ -1,5 +1,9 @@
 # Sales Email Thread Analytics
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://email-analytics-jm325eketabavr9apkcxo5.streamlit.app/)
+
+**[Live Demo on Streamlit Cloud](https://email-analytics-jm325eketabavr9apkcxo5.streamlit.app/)**
+
 An AI-powered application that analyzes sales email conversations and converts unstructured email data into structured CSV outputs. It identifies discussion threads, analyzes sentiment, extracts requirements, and evaluates sales representative performance.
 
 ## 🚀 Getting Started
