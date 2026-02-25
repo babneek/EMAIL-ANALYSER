@@ -277,7 +277,7 @@ if current_input_data:
         # Primary Action Button
         run_btn = st.button("🚀 EXECUTE ANALYTICS ENGINE", 
                            disabled=not st.session_state.json_validated,
-                           use_container_width=True)
+                           width='stretch')
         
         if run_btn:
             if not api_key:
@@ -352,7 +352,7 @@ if 'df_result' in st.session_state:
     
     # Data View
     st.markdown("<div class='custom-card'>", unsafe_allow_html=True)
-    st.dataframe(df, use_container_width=True, hide_index=True)
+    st.dataframe(df, width='stretch', hide_index=True)
     
     # Download
     csv_out = df.to_csv(index=False).encode('utf-8')
