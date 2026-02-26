@@ -40,6 +40,7 @@ Return ONLY this JSON structure:
 Rules:
 - Every email must appear in at least one thread.
 - Thread topics should be specific labels like: Pricing, Product Features, Implementation Timeline, Contract Terms, Support SLAs, Data Migration, Security Compliance, etc.
+- If an email contains a specific question, ensure the "relevant_excerpt" includes that exact question.
 - Output raw JSON only."""
     
     client = get_client()
@@ -60,66 +61,66 @@ Rules:
         print(f"ERROR in thread identification: {e}")
         return None
 
-def analyze_threads(threads_json: str, api_key: str = None, model: str = "llama-3.1-8b-instant", verbose: bool = False) -> dict:
-    SYSTEM_PROMPT = """You are a "Zero-Mercy" sales intelligence analyst. Your job is to perform deep reasoning on email threads to identify exactly where sales representatives failed to address client requirements. You are looking for missed opportunities, unanswered questions, and lack of follow-through. Return ONLY valid JSON, no markdown code blocks."""
-    USER_PROMPT_TEMPLATE = """Perform a "Zero-Mercy" gap analysis on each email thread below. Produce a detailed assessment focusing on performance gaps.
+def analyze_threads(emails_text: str, api_key: str = None, model: str = "llama-3.1-8b-instant", verbose: bool = False) -> list:
+    SYSTEM_PROMPT = """You are a Lead Sales Operations Analyst. Your role is "Zero-Mercy" gap detection.
+    
+    STRICT GROUNDING RULE: Only create entries for topics that are EXPLICITLY discussed in the provided email text. 
+    If a topic is not in the text, do NOT create a row for it.
+    
+    EXPERT ANALYTICAL ROLE: Cross-reference every client request against every representative response. 
+    If a rep missed even a tiny detail (like a specific discount percentage or a report request), you MUST flag it as a 'Gap'.
+    Set 'sales_rep_understanding' to 'Poor' or 'Partial' if any client question was ignored or answered vaguely.
+    Set 'risk_level' to 'High' if critical questions were ignored or sentiment is 'Negative'.
+    """
 
-Threads:
-{threads}
+    USER_PROMPT = f"""THE ULTIMATE SALES INTELLIGENCE PROMPT
+    
+    CRITICAL FORMATTING RULES:
+    1. Array Output: You MUST return a JSON ARRAY of objects. Each row in the final CSV must be its own object in the array.
+    2. One Topic Per Object: If a conversation covers Pricing, Security, and SLAs, you must create 3 separate objects. NEVER merge topics.
+    3. No Markdown: Return RAW JSON ONLY. Do not use ```json or any backticks.
+    4. Consistency: Use 'N/A' or 'None' for empty fields. Do not omit any of the 14 attributes.
 
-For EACH thread, evaluate:
+    EXPLICIT ATTRIBUTE DEFINITIONS: strictly populate these 14 attributes as defined below:
+    - thread_id: Generate a strict serial ID. Format: THR_001_1, THR_001_2, etc.
+    - conversation_id: Use the ID from the dataset if available, otherwise CONV_001.
+    - thread_topic: Professional, specific label (e.g., "Pricing Negotiation", "API Error Troubleshooting").
+    - email_count: The total count (Integer) of emails belonging to this specific thread.
+    - participants: Semicolon-separated list of all email addresses involved.
+    - overall_sentiment: Exactly one of: [Positive, Neutral, Negative].
+    - sentiment_trend: Exactly one of: [Improving, Stable, Declining].
+    - client_requirements: Semicolon-separated list of every explicit or implicit need.
+    - open_questions: Semicolon-separated list of unresolved questions.
+    - sales_rep_understanding: Exactly one of: [Clear, Partial, Poor].
+    - sales_rep_gaps: Detailed, semicolon-separated list of exactly what the representative missed, ignored, or answered vaguely. BE CRITICAL.
+    - risk_level: Exactly one of: [Low, Medium, High].
+    - recommended_next_action: A single, clear, actionable instruction to fix the identified gaps.
+    - last_updated: The ISO timestamp of the very latest email within this specific thread.
 
-1. **Sentiment**: Overall sentiment (Positive / Neutral / Negative) and trend (Improving / Stable / Declining).
-2. **Client Requirements**: What does the client need? List explicit and implicit requirements.
-3. **Open Questions**: Unresolved questions the client has asked.
-4. **Sales Rep Understanding**: (Clear / Partial / Poor). Identify exactly which questions were ignored or answered vaguely.
-5. **Sales Rep Gaps**: LIST EVERY PIECE OF INFORMATION OR ACTION THE REP FAILED TO PROVIDE. Be specific.
-6. **Risk Level**: Low / Medium / High.
-7. **Recommended Next Action**: Immediate corrective action.
-
-Return ONLY this JSON structure:
-{{
-  "analyzed_threads": [
-    {{
-      "thread_id": "T001",
-      "conversation_id": "CONV_001",
-      "thread_topic": "Pricing",
-      "email_count": 3,
-      "participants": "alice@client.com; bob@sales.com",
-      "overall_sentiment": "Negative",
-      "sentiment_trend": "Declining",
-      "client_requirements": "Wants 20% volume discount for 500+ licenses; needs pricing locked for 2 years",
-      "open_questions": "What is the discount for annual vs monthly billing?",
-      "sales_rep_understanding": "Partial",
-      "sales_rep_gaps": "Ignored 2-year price lock request; failed to provide annual vs monthly billing breakdown; did not confirm if 20% discount applies to first year only",
-      "risk_level": "High",
-      "recommended_next_action": "Send comprehensive pricing matrix with 2-year lock confirmation",
-      "last_updated": "2026-02-20T14:30:00Z"
-    }}
-  ]
-}}
-
-Rules:
-- One object per thread.
-- "participants" should be a semicolon-separated string.
-- "client_requirements", "open_questions", "sales_rep_gaps" must be detailed semicolon-separated strings.
-- "last_updated" must be the timestamp of the very last email.
-- Output raw JSON only."""
+    DATASET TO ANALYZE:
+    {emails_text}
+    """
     
     client = get_client()
-    user_prompt = USER_PROMPT_TEMPLATE.format(threads=threads_json)
     try:
         response = client.chat.completions.create(
             model=model,
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": user_prompt}
+                {"role": "user", "content": USER_PROMPT}
             ],
             temperature=0.0,
-            response_format={"type": "json_object"}
+            # Groq supports json_object, but for a list we should be careful. 
+            # However, the prompt is very strict.
         )
-        content = response.choices[0].message.content
+        content = response.choices[0].message.content.strip()
+        # Remove markdown if the model hallucinated it
+        if content.startswith("```"):
+            content = content.split("\n", 1)[1].rsplit("\n", 1)[0].strip()
+            if content.startswith("json"):
+                content = content[4:].strip()
+                
         return json.loads(content)
     except Exception as e:
-        print(f"ERROR in thread analysis: {e}")
+        print(f"ERROR in ultimate analysis: {e}")
         return None

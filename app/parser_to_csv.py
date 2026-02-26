@@ -23,7 +23,10 @@ def analysis_to_csv(analysis_data):
         'recommended_next_action',
         'last_updated'
     ]
-    threads = analysis_data.get('analyzed_threads', [])
+    if isinstance(analysis_data, list):
+        threads = analysis_data
+    else:
+        threads = analysis_data.get('analyzed_threads', [])
     output = io.StringIO()
     writer = csv.DictWriter(output, fieldnames=fieldnames)
     writer.writeheader()

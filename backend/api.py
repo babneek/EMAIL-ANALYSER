@@ -52,22 +52,18 @@ async def analyze_emails(request: AnalyzeRequest):
             ]
         }
 
-    # Step 1: Identify Threads
-    threads = identify_threads(json.dumps(emails_obj), groq_api_key, request.model)
-    if not threads or "threads" not in threads:
-        raise HTTPException(status_code=500, detail="Failed to identify email threads")
-
-    # Step 2: Analyze Threads (Zero-Mercy Gap Analysis)
-    analysis = analyze_threads(json.dumps(threads), groq_api_key, request.model)
-    if not analysis or "analyzed_threads" not in analysis:
+    # Step 1: Perform Ultimate Analysis
+    # The analyze_threads function now uses the "Ultimate Prompt" and handles everything
+    analysis = analyze_threads(clean_txt, groq_api_key, request.model)
+    if not analysis or not isinstance(analysis, list):
         raise HTTPException(status_code=500, detail="Failed to perform thread analysis")
 
-    # Step 3: Prepare CSV Data
+    # Step 2: Prepare CSV Data
     csv_data = analysis_to_csv(analysis)
 
     return {
-        "threads": threads.get("threads", []),
-        "analysis": analysis.get("analyzed_threads", []),
+        "threads": analysis, # Returning the full analysis array for both sections
+        "analysis": analysis,
         "csv": csv_data
     }
 
