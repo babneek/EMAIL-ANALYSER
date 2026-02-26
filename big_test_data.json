@@ -1,0 +1,83 @@
+{
+    "conversations": [
+        {
+            "conversation_id": "CONV_PRO_X",
+            "client": "MacroSoft Global",
+            "sales_rep": "Robert Parker",
+            "emails": [
+                {
+                    "email_id": "E_001",
+                    "sender": "vp_engineering@macrosoft.com",
+                    "recipient": "robert.p@salessolutions.com",
+                    "timestamp": "2026-02-15T09:00:00Z",
+                    "subject": "Infrastructure Upgrade Project - Initial Requirements",
+                    "body": "Hi Robert, following our call, we want to proceed with the Enterprise tier. We need: 1. 5000+ seats capacity. 2. Data residency strictly in Germany (EU). 3. 24/7 phone support with 1-hour SLA. 4. SSO integration with Azure AD. Can you confirm the total annual cost and confirm you meet these security requirements?"
+                },
+                {
+                    "email_id": "E_002",
+                    "sender": "robert.p@salessolutions.com",
+                    "recipient": "vp_engineering@macrosoft.com",
+                    "timestamp": "2026-02-15T10:30:00Z",
+                    "subject": "Re: Infrastructure Upgrade Project - Initial Requirements",
+                    "body": "Hi there! Great news. For 5000 seats, our list price is $25/user/month. Since you're a strategic account, I can offer 40% off. We support SSO perfectly. I'll send the contract today."
+                },
+                {
+                    "email_id": "E_003",
+                    "sender": "security_lead@macrosoft.com",
+                    "recipient": "robert.p@salessolutions.com",
+                    "timestamp": "2026-02-16T11:00:00Z",
+                    "subject": "Security Inquiry - MacroSoft / SalesSolutions",
+                    "body": "Robert, I'm joining the thread. The VP mentioned Germany data residency. We noticed your server list only mentions US-East and US-West. Do you have a German data center? Also, what is your encryption standard for data at rest?"
+                },
+                {
+                    "email_id": "E_004",
+                    "sender": "robert.p@salessolutions.com",
+                    "recipient": "security_lead@macrosoft.com",
+                    "timestamp": "2026-02-16T14:00:00Z",
+                    "subject": "Re: Security Inquiry - MacroSoft / SalesSolutions",
+                    "body": "Hello! We use AES-256 for encryption. Our infrastructure is top-notch and handled by the best providers. Looking forward to getting you on board!"
+                },
+                {
+                    "email_id": "E_005",
+                    "sender": "vp_engineering@macrosoft.com",
+                    "recipient": "robert.p@salessolutions.com",
+                    "timestamp": "2026-02-17T09:15:00Z",
+                    "subject": "CRITICAL: Response Needed on Data Residency",
+                    "body": "Robert, you missed the most important question. Do you have a German data center? Our legal team cannot sign without EU residency. Also, you didn't answer about the 1-hour SLA for the 24/7 support. I need answers on these two points by EOD or we are looking at competitors."
+                },
+                {
+                    "email_id": "E_006",
+                    "sender": "robert.p@salessolutions.com",
+                    "recipient": "vp_engineering@macrosoft.com",
+                    "timestamp": "2026-02-17T11:00:00Z",
+                    "subject": "Re: CRITICAL: Response Needed on Data Residency",
+                    "body": "I understand the urgency! I'm checking with my technical team right now about the data center. Regarding the SLA, we always strive for fast responses. I can include a standard SLA document in the email for you to review."
+                },
+                {
+                    "email_id": "E_007",
+                    "sender": "billing@macrosoft.com",
+                    "recipient": "robert.p@salessolutions.com",
+                    "timestamp": "2026-02-18T10:00:00Z",
+                    "subject": "Billing/Contract terms",
+                    "body": "Hi Robert, regarding the 40% discount, does this apply to annual renewals or just the first year? Also, we noticed a $5000 setup fee in the draft contract. We were told setup was included. Can you remove that?"
+                },
+                {
+                    "email_id": "E_008",
+                    "sender": "robert.p@salessolutions.com",
+                    "recipient": "billing@macrosoft.com",
+                    "timestamp": "2026-02-18T13:00:00Z",
+                    "subject": "Re: Billing/Contract terms",
+                    "body": "The 40% is for the first year. For renewals, we'll need to re-evaluate. The setup fee is standard but since we're friends now, I'll see what I can do about reducing it by half."
+                },
+                {
+                    "email_id": "E_009",
+                    "sender": "vp_engineering@macrosoft.com",
+                    "recipient": "robert.p@salessolutions.com",
+                    "timestamp": "2026-02-19T15:30:00Z",
+                    "subject": "Final Follow Up - Closing the deal?",
+                    "body": "Robert, we still don't have a clear 'Yes' on the Germany data center, and the billing team is unhappy about the renewal price jump. We need a final answer on: 1. German Data Residency. 2. 1-Hour SLA Guarantee. 3. Multi-year price lock. If not, we are pivoting to Project Cloud-X."
+                }
+            ]
+        }
+    ]
+}

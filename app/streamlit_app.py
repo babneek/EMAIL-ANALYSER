@@ -167,19 +167,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Main Card
+
 st.markdown("<div class='custom-card'>", unsafe_allow_html=True)
 st.markdown("### 📥 Load Conversations")
-t1, t2, t3 = st.tabs(["📁 File Upload", "📋 Direct Paste", "💡 Demo Data"])
+t1, t2 = st.tabs(["📋 Direct Paste", "💡 Demo Data"])
 
 with t1:
-    up = st.file_uploader("Upload email JSON", type=["json"], label_visibility="collapsed")
-    if up:
-        try:
-            st.session_state.data = json.loads(up.read().decode())
-            st.success("File loaded successfully.")
-        except: st.error("Invalid JSON file.")
-
-with t2:
     with st.form("p"):
         txt = st.text_area("Paste JSON here", height=200, label_visibility="collapsed", placeholder="Paste conversation JSON...")
         if st.form_submit_button("💾 Apply Current Snippet"):
@@ -187,6 +180,20 @@ with t2:
                 st.session_state.data = json.loads(txt)
                 st.success("Snippet applied manually.")
             except: st.error("Invalid JSON syntax.")
+
+
+with t2:
+    st.markdown("<div style='text-align: center; padding: 1.5rem;'>", unsafe_allow_html=True)
+    st.write("Use our pre-configured sample dataset to see the engine in action.")
+    if st.button("✨ Load Sample Emails"):
+        sample_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sample_emails.json")
+        try:
+            with open(sample_path, "r") as f:
+                st.session_state.data = json.load(f)
+                st.success("Sample emails loaded! Scroll down to run analysis.")
+        except Exception as e:
+            st.error(f"Could not find sample_emails.json at {sample_path}")
+    st.markdown("</div>", unsafe_allow_html=True)
 
 with t3:
     st.markdown("<div style='text-align: center; padding: 1.5rem;'>", unsafe_allow_html=True)
