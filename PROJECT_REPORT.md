@@ -11,18 +11,18 @@ Both systems combine AI reasoning with automated workflows for fast and accurate
 
 ## 2. Sales Email Intelligence System
 
-### 2.1 Web Application (Streamlit Dashboard)
-- **Purpose**: Allows sales managers to upload emails and view insights in an interactive dashboard.
-- **Tech Stack**: Streamlit (UI), GPT-4o AI (analysis)
+### 2.1 Web Application (Intelligence Dashboard)
+- **Purpose**: A professional analytical dashboard for sales managers to upload email conversations and extract deep business intelligence.
+- **Tech Stack**: React 19 / Vite (Frontend), FastAPI (Backend), Groq LPU / Llama 3 (AI Engine).
 - **How it Works**:
-  1. Users upload their email dataset.
-  2. Emails are grouped into threads.
-  3. AI analyzes each thread for sentiment, client requirements, and gaps in sales responses.
-  4. Results can be downloaded as a CSV file for reporting.
+  1. **Ingestion**: Users paste or upload raw email text or JSON datasets.
+  2. **Threading**: The system intelligently identifies and segments parallel discussion topics.
+  3. **Zero-Mercy Analysis**: AI identifies sentiment, specific client requirements, and exact performance gaps where sales reps failed to follow up.
+  4. **Export**: Full analytics report is available for one-click CSV download.
 - **Advantages**:
-  - Real-time interactive dashboard
-  - Easy visualization of gaps and risks
-  - Manual review and export options
+  - High-speed processing via Groq's LPU hardware.
+  - "Zero-Mercy" logic specifically designed to spot missed opportunities.
+  - Premium enterprise-grade UI with glassmorphic design and smooth animations.
 
 ---
 
