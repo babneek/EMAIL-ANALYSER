@@ -4,8 +4,8 @@
 To get started with the source code and local project resources, clone the repository and navigate into the project directory:
 
 ```bash
-git clone https://github.com/babneek/email-analytics.git
-cd email-analytics
+git clone https://github.com/babneek/EMAIL-ANALYSER.git
+cd EMAIL-ANALYSER
 ```
 
 ## 2. Introduction
@@ -13,26 +13,28 @@ This project presents two distinct, high-performance implementations of a Sales 
 
 ---
 
-## PART 1: Streamlit Web Application (High-Code Dashboard)
+## PART 1: React & FastAPI Intelligence Dashboard (High-Scale Dashboard)
 
 ### 1.1 Overview
-The Web Application implementation is designed as a user-facing analytical dashboard. It provides a visual environment for sales managers to upload datasets, review AI-generated insights in real-time, and export results for reporting.
+The Web Application has been upgraded from a basic Streamlit app to a professional React-based enterprise dashboard. It mirrors the high-performance reasoning of the n8n agent by using the Groq LPU engine for near-instant analysis.
 
 ### 1.2 Tech Stack
-- **Frontend/UI**: Streamlit (Python)
-- **AI Engine**: OpenAI GPT-4o
-- **Data Engineering**: Pandas & Python-dotenv
-- **Deployment**: Streamlit Cloud
+- **Frontend/UI**: React 19 (Vite) + Framer Motion (Animations)
+- **Backend/API**: FastAPI (Python)
+- **AI Engine**: Groq (LPU Hardware)
+- **Large Language Model**: Llama 3.3 70B Versatile
+- **Data Engineering**: Pandas & Pydantic
+- **Deployment**: Render (Static Site + Web Service)
 
 ### 1.3 System Architecture
-The application follows a structured modular design:
-- **`app/streamlit_app.py`**: The main entry point and UI controller.
-- **`app/thread_identifier.py`**: Logic for segmenting continuous email chains into logical topic groups.
-- **`app/thread_analyzer.py`**: High-reasoning engine for sentiment analysis, risk assessment, and gap detection.
-- **`app/csv_exporter.py`**: Automation utility for generating standardized CSV deliverables.
+The application follows a decoupled modern architecture:
+- **`frontend/src/App.jsx`**: The React state controller and interactive UI.
+- **`backend/api.py`**: The FastAPI server handling ingestion and AI orchestration.
+- **`app/llm.py`**: The "Zero-Mercy" reasoning engine powering both thread identification and gap analysis.
+- **`app/parser_to_csv.py`**: High-performance data transformation for reporting.
 
 ### 1.4 User Workflow
-Users upload a JSON email dataset $\rightarrow$ The system identifies parallel threads $\rightarrow$ Insights are displayed in an interactive table $\rightarrow$ One-click CSV export for downstream usage.
+Users paste raw text or JSON $\rightarrow$ System cleanses ingestion $\rightarrow$ Groq performs 70B reasoning $\rightarrow$ Gaps are visualized in a glassmorphic table $\rightarrow$ Immediate CSV download.
 
 ---
 
@@ -60,7 +62,7 @@ The agent automatically triggers a browser-side CSV download via a **Respond to 
 ---
 
 ## 3. Comparison & Conclusion
-While the **Web App** offers superior visualization and manual control, the **n8n Agent** provides unparalleled speed and automation capabilities. Together, these systems provide a comprehensive solution for modern Sales Operations management.
+Previously, the Web App and n8n Agent used different logic. Now, **both are unified**. The Web App now runs on the same **Groq + Llama 3.3** engine as the n8n agent, providing consistent "Zero-Mercy" gap analysis across all interfaces.
 
 ---
 
@@ -118,7 +120,7 @@ To ensure these tools are production-ready, both systems are equipped with **Web
 ## 9. Live Application Access
 The Sales Email Intelligence system is deployed and available via a secure web form. Users can paste their own email data (Standard Text or JSON) and receive an instantaneous CSV download of the analysis.
 
-**🔗 [Launch Sales Intelligence Agent (Web Form)](PASTE_YOUR_COPIED_URL_HERE)**
+**🔗 [Launch Sales Intelligence Dashboard (Live)](https://email-analyser-dashboard.onrender.com)**
 
 ---
 
