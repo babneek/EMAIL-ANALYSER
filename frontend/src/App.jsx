@@ -10,7 +10,8 @@ import {
   Minus,
   AlertCircle,
   Clock,
-  MessageSquare
+  MessageSquare,
+  Database
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -19,6 +20,42 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState(null);
   const [error, setError] = useState(null);
+
+  const loadTestData = () => {
+    const testData = `From: Sarah Chen <s.chen@globaltech.com>
+To: Mark Stevens <mark.s@cloudsolutions.io>
+Subject: Security and Pricing for Enterprise Migration
+
+Hi Mark,
+
+Thanks for the demo earlier today. We are interested in moving forward with CloudSolutions, but my procurement team has a few non-negotiable requirements before we sign:
+
+1. We need a formal SOC2 Type II report for our audit. Can you send that over?
+2. We have 1,200 employees. What is the volume discount for a team of this size?
+3. We require data residency in Singapore (APAC). Is your local server cluster ready for this?
+4. Do you offer 24/7 phone support, or is it just the ticket system?
+
+Looking forward to your quick response.
+
+Best,
+Sarah
+---
+From: Mark Stevens <mark.s@cloudsolutions.io>
+To: Sarah Chen <s.chen@globaltech.com>
+Subject: Re: Security and Pricing for Enterprise Migration
+
+Hi Sarah!
+
+Great hearing from you. I’m so glad the team loved the demo. 
+
+Regarding your questions—we have a fantastic per-user price of $18/month, which is a great deal compared to the competition. We also have a very robust security framework that meets most global standards. 
+
+I’ll check with my manager on the other details, but I’m ready to send the contract today so we can hit your Q1 deadline. Would you like me to send the Docusign now?
+
+Best,
+Mark`;
+    setInputText(testData);
+  };
 
   const handleAnalyze = async () => {
     if (!inputText.trim()) return;
@@ -109,7 +146,15 @@ const App = () => {
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
           />
-          <div className="button-group">
+          <div className="button-group" style={{ gap: '1rem' }}>
+            <button
+              className="btn-secondary"
+              onClick={loadTestData}
+              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', color: 'white', padding: '0.8rem 1.5rem', borderRadius: '12px', cursor: 'pointer' }}
+            >
+              <Database size={18} />
+              Use Test Email
+            </button>
             <button
               className="btn-primary"
               onClick={handleAnalyze}
