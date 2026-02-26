@@ -51,7 +51,7 @@ Rules:
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_prompt}
             ],
-            temperature=0.2,
+            temperature=0.0,
             response_format={"type": "json_object"}
         )
         content = response.choices[0].message.content
@@ -115,7 +115,7 @@ Rules:
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_prompt}
             ],
-            temperature=0.2,
+            temperature=0.0,
             response_format={"type": "json_object"}
         )
         content = response.choices[0].message.content
