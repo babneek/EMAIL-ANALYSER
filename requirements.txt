@@ -1,4 +1,9 @@
-streamlit
+fastapi
+uvicorn
+groq
+pydantic
+python-dotenv
 openai
 pandas
-python-dotenv
+jinja2
+python-multipart
