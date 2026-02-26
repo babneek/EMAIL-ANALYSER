@@ -6,7 +6,7 @@ def get_client():
     api_key = os.getenv("GROQ_API_KEY")
     return Groq(api_key=api_key)
 
-def identify_threads(emails_json: str, api_key: str = None, model: str = "llama-3.3-70b-versatile", verbose: bool = False) -> dict:
+def identify_threads(emails_json: str, api_key: str = None, model: str = "llama-3.1-8b-instant", verbose: bool = False) -> dict:
     SYSTEM_PROMPT = """You are an expert email analyst. Your job is to identify distinct discussion threads within sales email conversations. Return ONLY valid JSON, no markdown code blocks, no explanations."""
     USER_PROMPT_TEMPLATE = """Analyze the following sales email conversations and identify all distinct discussion threads.
 
@@ -60,7 +60,7 @@ Rules:
         print(f"ERROR in thread identification: {e}")
         return None
 
-def analyze_threads(threads_json: str, api_key: str = None, model: str = "llama-3.3-70b-versatile", verbose: bool = False) -> dict:
+def analyze_threads(threads_json: str, api_key: str = None, model: str = "llama-3.1-8b-instant", verbose: bool = False) -> dict:
     SYSTEM_PROMPT = """You are a "Zero-Mercy" sales intelligence analyst. Your job is to perform deep reasoning on email threads to identify exactly where sales representatives failed to address client requirements. You are looking for missed opportunities, unanswered questions, and lack of follow-through. Return ONLY valid JSON, no markdown code blocks."""
     USER_PROMPT_TEMPLATE = """Perform a "Zero-Mercy" gap analysis on each email thread below. Produce a detailed assessment focusing on performance gaps.
 

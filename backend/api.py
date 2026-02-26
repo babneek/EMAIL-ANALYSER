@@ -27,7 +27,7 @@ app.add_middleware(
 
 class AnalyzeRequest(BaseModel):
     emails_text: str
-    model: str = "llama-3.3-70b-versatile"
+    model: str = "llama-3.1-8b-instant"
 
 @app.post("/analyze")
 async def analyze_emails(request: AnalyzeRequest):
