@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Sales Email Thread Analytics — CLI Application
-Usage: python main.py --input sample_emails.json --output report.csv
+Usage: python cli.py --input ../tests/data/sample_emails.json --output report.csv
 """
 
 import argparse
@@ -10,12 +10,14 @@ import sys
 import os
 from dotenv import load_dotenv
 
-from thread_identifier import identify_threads
-from thread_analyzer import analyze_threads
-from csv_exporter import export_to_csv
+# Ensure the root 'backend' directory is in the path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-load_dotenv()
+from app.core.analyzer import identify_threads, analyze_threads
+from app.utils.csv_exporter import export_to_csv
 
+# Load .env from backend directory
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 def main():
     parser = argparse.ArgumentParser(
@@ -33,8 +35,8 @@ def main():
     )
     parser.add_argument(
         "--model",
-        default=os.getenv("MODEL_NAME", "gpt-4o-mini"),
-        help=f"OpenAI model to use (default: {os.getenv('MODEL_NAME', 'gpt-4o-mini')})"
+        default="llama-3.1-8b-instant",
+        help="Model to use (default: llama-3.1-8b-instant)"
     )
     parser.add_argument(
         "--verbose", "-v",
@@ -45,9 +47,9 @@ def main():
     args = parser.parse_args()
 
     # Check API key
-    api_key = os.getenv("OPENAI_API_KEY")
+    api_key = os.getenv("GROQ_API_KEY")
     if not api_key:
-        print("ERROR: OPENAI_API_KEY not found. Set it in .env file or environment.")
+        print("ERROR: GROQ_API_KEY not found. Set it in .env file or environment.")
         sys.exit(1)
 
     # Load input file
@@ -62,32 +64,20 @@ def main():
         print(f"ERROR: Invalid JSON in input file: {e}")
         sys.exit(1)
 
-    emails_json = json.dumps(emails_data)
-
-    # Step 1: Identify threads
-    print("Step 1/3: Identifying email threads...")
-    threads = identify_threads(emails_json, api_key, args.model, args.verbose)
-    if not threads:
-        print("ERROR: Failed to identify threads.")
-        sys.exit(1)
-    thread_count = len(threads.get("threads", []))
-    print(f"         Found {thread_count} threads.")
-
-    # Step 2: Analyze threads
-    print("Step 2/3: Analyzing threads (sentiment, risk, requirements)...")
-    analysis = analyze_threads(json.dumps(threads), api_key, args.model, args.verbose)
+    # Step 1: Identification (Simplified as the new analyze_threads handles it)
+    print("Step 1/2: Analyzing threads (sentiment, risk, requirements)...")
+    analysis = analyze_threads(json.dumps(emails_data), api_key, args.model, args.verbose)
     if not analysis:
         print("ERROR: Failed to analyze threads.")
         sys.exit(1)
-    analyzed_count = len(analysis.get("analyzed_threads", []))
+    
+    analyzed_count = len(analysis) if isinstance(analysis, list) else 0
     print(f"         Analyzed {analyzed_count} threads.")
 
-    # Step 3: Export to CSV
-    print(f"Step 3/3: Exporting CSV to: {args.output}")
+    # Step 2: Export to CSV
+    print(f"Step 2/2: Exporting CSV to: {args.output}")
     export_to_csv(analysis, args.output)
     print(f"\nDone! CSV saved to: {args.output}")
-    print(f"Rows: {analyzed_count} threads | Columns: 14 attributes")
-
 
 if __name__ == "__main__":
     main()

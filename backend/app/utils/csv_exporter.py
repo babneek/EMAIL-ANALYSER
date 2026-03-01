@@ -34,3 +34,11 @@ def analysis_to_csv(analysis_data):
         row = {c: ("; ".join(map(str, t.get(c, []))) if isinstance(t.get(c), list) else t.get(c, '')) for c in fieldnames}
         writer.writerow(row)
     return output.getvalue()
+
+def export_to_csv(analysis_data, output_path):
+    """
+    Saves analyzed threads to a CSV file.
+    """
+    csv_str = analysis_to_csv(analysis_data)
+    with open(output_path, 'w', newline='', encoding='utf-8') as f:
+        f.write(csv_str)

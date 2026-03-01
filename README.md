@@ -1,59 +1,73 @@
-# Sales Email Thread Analytics
+# 📧 SimplAI Email Intelligence Analytics
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://email-analytics-jm325eketabavr9apkcxo5.streamlit.app/)
+> **High-Reasoning Sales Operations Agent with Zero-Mercy Gap Analysis**
 
-**[Live Demo on Streamlit Cloud](https://email-analytics-jm325eketabavr9apkcxo5.streamlit.app/)**
+SimplAI Email Analytics is a professional-grade intelligence platform designed to extract, analyze, and audit sales email conversations. Using advanced LLM reasoning (Groq/Llama-3), it identifies discussion threads and performs rigorous "Zero-Mercy" gap detection to help sales managers identify where representatives are missing critical client requirements.
 
-An AI-powered application that analyzes sales email conversations and converts unstructured email data into structured CSV outputs. It identifies discussion threads, analyzes sentiment, extracts requirements, and evaluates sales representative performance.
+---
+
+## 🔗 Live Application
+Access the production dashboard here:
+- **Sales Email Intelligence application**: [https://email-analytics-dashboard-q3nc.onrender.com](https://email-analytics-dashboard-q3nc.onrender.com)
+
+---
+
+## 🏗️ Project Architecture
+
+```text
+simplai-email-analytics/
+├── backend/                # FastAPI High-Performance Server
+│   ├── app/                # Main Application Package
+│   │   ├── api/            # API Route Handlers
+│   │   ├── core/           # Business & AI Logic (LLM)
+│   │   └── utils/          # Export & Formatting Utilities
+│   ├── scripts/            # CLI Tools & Automation Scripts
+│   ├── tests/              # Test Suites & Sample Data
+├── frontend/               # React + Vite + Framer Motion Dashboard
+│   ├── src/
+│   │   ├── components/     # UI Architecture
+│   │   └── services/       # API Abstraction Layer
+└── README.md               # Project Entry Point
+```
+
+---
 
 ## 🚀 Getting Started
 
-### Prerequisites
-- Python 3.8+
-- OpenAI API Key
+### 1. Backend Setup
+1. Navigate to the backend directory: `cd backend`
+2. Install dependencies: `pip install -r requirements.txt`
+3. Configure your environment: `cp .env.example .env` and add your `GROQ_API_KEY`.
+4. Start the server: `uvicorn app.main:app --reload`
 
-### Installation
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   pip install streamlit openai pandas python-dotenv
-   ```
-3. Set up your environment:
-   Create a `.env` file in the root directory and add your OpenAI API key:
-   ```env
-   OPENAI_API_KEY=your_api_key_here
-   ```
+### 2. Frontend Setup
+1. Navigate to the frontend directory: `cd frontend`
+2. Install dependencies: `npm install`
+3. Start the dev server: `npm run dev`
+4. Access the dashboard at `http://localhost:5173`.
 
-## 🛠️ Usage
+---
 
-### 1. Streamlit Web App (Recommended)
-The premium web interface allows you to upload JSON files, visualize the analysis, and download the CSV report.
+## 🛠️ Key Features
+
+### 🔍 Zero-Mercy Analysis
+The core intelligence engine doesn't just summarize; it **audits**. 
+- **Missed Detail Gaps**: Any specific requirement ignored by the rep.
+- **Sentiment Slippage**: Negative trends in client communication.
+- **Risk Identification**: Automated high-risk flagging for at-risk deals.
+
+### 📊 Multi-Channel Output
+- **Interactive Dashboard**: Real-time analysis with Framer Motion animations.
+- **CSV Professional Export**: Generate management-ready reports in seconds.
+- **CLI Power Tool**: Batch process data via the command line.
+
+---
+
+## 💻 CLI Usage
 ```bash
-streamlit run app/streamlit_app.py
+python backend/scripts/cli.py --input backend/tests/data/sample_emails.json --output report.csv
 ```
 
-### 2. Command Line Interface
-Run the analysis directly from your terminal.
-```bash
-python app/main.py --input sample_emails.json --output report.csv
-```
+---
 
-## 📂 Project Structure
-- `app/streamlit_app.py`: Premium Streamlit dashboard.
-- `app/main.py`: CLI entry point.
-- `app/thread_identifier.py`: Logic for grouping emails into threads.
-- `app/thread_analyzer.py`: Logic for sentiment, risk, and gap analysis.
-- `app/csv_exporter.py`: Utility for CSV generation.
-- `sample_emails.json`: Example dataset for testing.
-
-## 📊 Output Schema
-The final CSV contains 14 attributes including:
-- `thread_id`: Unique identifier for the thread
-- `overall_sentiment`: Positive / Neutral / Negative
-- `risk_level`: Low / Medium / High
-- `sales_rep_understanding`: Clear / Partial / Poor
-- `recommended_next_action`: Suggested follow-up
-... and more.
-
-## 📄 Documentation
-For detailed information on the AI logic and SimplAI nodes, see [documentation.md](documentation.md).
+Built with ❤️ by **SimplAI Systems**

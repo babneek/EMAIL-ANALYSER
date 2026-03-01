@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+groq
+pydantic
+python-dotenv
+openai
+pandas
+jinja2
+python-multipart
